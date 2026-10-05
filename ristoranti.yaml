@@ -1,0 +1,15 @@
+# Un ristorante per voce. Campi obbligatori: nome, cucina, indirizzo.
+# lat e lng si possono scrivere a mano oppure farli compilare a geocode.mjs.
+# Le due voci sotto sono ESEMPI inventati: sostituiscile con quelle vere.
+
+- nome: Ristorante di Esempio Uno
+  cucina: indiana
+  indirizzo: Via del Campo 10, Genova
+  lat: 44.4108
+  lng: 8.9290
+  note: Esempio, da cancellare.
+
+- nome: Ristorante di Esempio Due
+  cucina: etiope
+  indirizzo: Via XX Settembre 20, Genova
+  sito: https://example.com
