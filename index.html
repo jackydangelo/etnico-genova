@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Etnico Genova</title>
+<meta name="description" content="Mappa dei ristoranti etnici di Genova.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+  :root {
+    --ardesia: #26343b;
+    --rosso: #c8102e;
+    --mare: #3c7a8c;
+    --carta: #f6f7f7;
+    --linea: #d9dfe1;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    height: 100dvh;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--ardesia);
+    background: var(--carta);
+  }
+  header {
+    padding: 12px 16px 10px;
+    background: #fff;
+    border-bottom: 1px solid var(--linea);
+  }
+  .titolo { display: flex; align-items: center; gap: 10px; }
+  .titolo svg { flex: none; }
+  h1 { margin: 0; font-size: 1.25rem; letter-spacing: -0.01em; }
+  #conteggio { margin-left: auto; font-size: .85rem; color: var(--mare); }
+  #filtri {
+    display: flex; gap: 8px; margin-top: 10px;
+    overflow-x: auto; padding-bottom: 2px;
+    scrollbar-width: none;
+  }
+  #filtri::-webkit-scrollbar { display: none; }
+  .chip {
+    flex: none; display: flex; align-items: center; gap: 6px;
+    padding: 6px 12px; border-radius: 999px;
+    border: 1px solid var(--linea); background: #fff;
+    font: inherit; font-size: .85rem; color: inherit; cursor: pointer;
+  }
+  .chip i { width: 10px; height: 10px; border-radius: 50%; background: var(--c, var(--ardesia)); }
+  .chip[aria-pressed="true"] { background: var(--ardesia); border-color: var(--ardesia); color: #fff; }
+  .chip:focus-visible, .leaflet-marker-icon:focus-visible { outline: 3px solid var(--rosso); outline-offset: 2px; }
+  #mappa { width: 100%; height: 100%; }
+  .pin {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--c); color: #fff;
+    border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.35);
+    display: grid; place-items: center;
+    font: 700 13px/1 system-ui, sans-serif;
+  }
+  .popup h2 { margin: 0 0 2px; font-size: 1rem; }
+  .popup p { margin: 2px 0; font-size: .85rem; }
+  .popup .cucina { color: var(--mare); font-weight: 600; }
+  #errore { padding: 12px 16px; background: #fdecee; color: var(--rosso); font-size: .9rem; }
+</style>
+</head>
+<body>
+<header>
+  <div class="titolo">
+    <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+      <rect x=".5" y=".5" width="23" height="23" fill="#fff" stroke="#26343b"/>
+      <path d="M10 0h4v10h10v4H14v10h-4V14H0v-4h10z" fill="#c8102e"/>
+    </svg>
+    <h1>Etnico Genova</h1>
+    <span id="conteggio"></span>
+  </div>
+  <div id="filtri" role="group" aria-label="Filtra per cucina"></div>
+</header>
+<div id="mappa" role="application" aria-label="Mappa dei ristoranti etnici di Genova"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+<script>
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c =>
+  ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+const colore = cucina => {
+  let h = 0;
+  for (const ch of cucina) h = (h * 31 + ch.charCodeAt(0)) % 360;
+  return `hsl(${h}, 55%, 40%)`;
+};
+
+const mappa = L.map("mappa", { zoomControl: true }).setView([44.4056, 8.9463], 13);
+L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+  maxZoom: 19,
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+}).addTo(mappa);
+
+const gruppo = L.layerGroup().addTo(mappa);
+let ristoranti = [];
+const attive = new Set();
+
+function disegna() {
+  gruppo.clearLayers();
+  const visibili = ristoranti.filter(r => !attive.size || attive.has(r.cucina));
+  visibili.forEach(r => {
+    const icona = L.divIcon({
+      className: "",
+      html: `<div class="pin" style="--c:${colore(r.cucina)}">${esc(r.nome[0])}</div>`,
+      iconSize: [28, 28], iconAnchor: [14, 14], popupAnchor: [0, -14]
+    });
+    const sito = r.sito ? `<p><a href="${esc(r.sito)}" target="_blank" rel="noopener">Sito web</a></p>` : "";
+    L.marker([r.lat, r.lng], { icon: icona, title: r.nome })
+      .bindPopup(`<div class="popup"><h2>${esc(r.nome)}</h2>
+        <p class="cucina">${esc(r.cucina)}</p>
+        <p>${esc(r.indirizzo)}</p>
+        ${r.note ? `<p>${esc(r.note)}</p>` : ""}${sito}</div>`)
+      .addTo(gruppo);
+  });
+  document.getElementById("conteggio").textContent =
+    visibili.length === 1 ? "1 ristorante" : `${visibili.length} ristoranti`;
+}
+
+function filtri() {
+  const box = document.getElementById("filtri");
+  [...new Set(ristoranti.map(r => r.cucina))].sort().forEach(c => {
+    const b = document.createElement("button");
+    b.className = "chip";
+    b.setAttribute("aria-pressed", "false");
+    b.style.setProperty("--c", colore(c));
+    b.innerHTML = `<i></i>${esc(c)}`;
+    b.onclick = () => {
+      attive.has(c) ? attive.delete(c) : attive.add(c);
+      b.setAttribute("aria-pressed", attive.has(c));
+      disegna();
+    };
+    box.appendChild(b);
+  });
+}
+
+fetch("ristoranti.yaml")
+  .then(r => { if (!r.ok) throw new Error("ristoranti.yaml non trovato"); return r.text(); })
+  .then(testo => {
+    const dati = jsyaml.load(testo) || [];
+    const senza = dati.filter(r => typeof r.lat !== "number" || typeof r.lng !== "number");
+    senza.forEach(r => console.warn("Senza coordinate, non mostrato:", r.nome));
+    ristoranti = dati.filter(r => !senza.includes(r));
+    filtri();
+    disegna();
+    if (ristoranti.length > 1)
+      mappa.fitBounds(ristoranti.map(r => [r.lat, r.lng]), { padding: [40, 40], maxZoom: 15 });
+  })
+  .catch(e => {
+    const d = document.createElement("div");
+    d.id = "errore";
+    d.textContent = "Impossibile caricare i ristoranti: " + e.message;
+    document.querySelector("header").after(d);
+  });
+</script>
+</body>
+</html>
