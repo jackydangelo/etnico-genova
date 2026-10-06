@@ -33,9 +33,7 @@
 
 - nome: Marrakech1
   cucina: marocchina
-  indirizzo: Via Guglielmo Oberdan, 22r, 16167 Genova GE, Italia
-  lat: 44.38512
-  lng: 9.03307
+  indirizzo: Piazza Colombo, 29 r, 16121 Genova GE, Italia
 
 - nome: Tabarca cucina iberica
   cucina: spagnola
@@ -45,12 +43,8 @@
 
 - nome: Mamacita's
   cucina: messicana
-  indirizzo: Piazza Bandiera, 27/R, 16124 Genova GE, Italia
-  lat: 44.41437
-  lng: 8.92894
-
+  indirizzo: Via Fieschi, 78r, 16128 Genova GE, Italia
+  
 - nome: Veracruz
   cucina: messicana
-  indirizzo: Piazza Bandiera, 27/R, 16124 Genova GE, Italia
-  lat: 44.41437
-  lng: 8.92894
+  indirizzo: Via di S. Bernardo, 59/61r, 16123 Genova GE, Italia
