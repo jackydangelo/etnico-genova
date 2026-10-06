@@ -1,0 +1,56 @@
+name: Pubblica sito
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  pubblica:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Compila le coordinate mancanti
+        run: |
+          npm install --no-save yaml
+          node geocode.mjs
+
+      - name: Salva le coordinate nel repo
+        run: |
+          if ! git diff --quiet ristoranti.yaml; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "Aggiorna coordinate ristoranti" ristoranti.yaml
+            git push
+          fi
+
+      - name: Prepara i file del sito
+        run: |
+          mkdir _site
+          cp index.html ristoranti.yaml _site/
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deploy
+        uses: actions/deploy-pages@v4
