@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ristoranti etnici a Genova</title>
+<title>Etnico Genova</title>
 <meta name="description" content="Mappa dei ristoranti etnici di Genova.">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <style>
@@ -48,7 +48,7 @@
     background: #fff; border-bottom: 1px solid var(--linea);
   }
   .testa h2 { margin: 0; font-size: 1rem; }
-  #chiudi { border: 0; background: none; font-size: 1.1rem; color: inherit; cursor: pointer; padding: 4px 8px; }
+  #chiudi, #chiudiFiltri { border: 0; background: none; font-size: 1.1rem; color: inherit; cursor: pointer; padding: 4px 8px; }
   #righe { list-style: none; margin: 0; padding: 0; }
   #righe li { border-bottom: 1px solid var(--linea); }
   #righe li:last-child { border-bottom: 0; }
@@ -59,21 +59,43 @@
   #righe span { display: block; font-size: .85rem; }
   #righe button span:first-of-type { color: var(--mare); }
   .vuoto { padding: 12px 16px; font-size: .9rem; }
-  #filtri {
-    display: flex; gap: 8px; margin-top: 10px;
-    overflow-x: auto; padding-bottom: 2px;
-    scrollbar-width: none;
-  }
-  #filtri::-webkit-scrollbar { display: none; }
-  .chip {
-    flex: none; display: flex; align-items: center; gap: 6px;
-    padding: 6px 12px; border-radius: 999px;
+  #apriFiltri {
+    display: flex; align-items: center; gap: 8px; margin-top: 10px;
+    padding: 8px 14px; border-radius: 999px;
     border: 1px solid var(--linea); background: #fff;
-    font: inherit; font-size: .85rem; color: inherit; cursor: pointer;
+    font: inherit; font-size: .9rem; color: inherit; cursor: pointer;
   }
-  .chip i { width: 10px; height: 10px; border-radius: 50%; background: var(--c, var(--ardesia)); }
-  .chip[aria-pressed="true"] { background: var(--ardesia); border-color: var(--ardesia); color: #fff; }
-  .chip:focus-visible, .leaflet-marker-icon:focus-visible { outline: 3px solid var(--rosso); outline-offset: 2px; }
+  #apriFiltri b { color: var(--mare); font-weight: 600; }
+  #apriFiltri:focus-visible, .leaflet-marker-icon:focus-visible, .voce:focus-visible,
+  #conteggio:focus-visible, #chiudi:focus-visible, #chiudiFiltri:focus-visible,
+  #righe li > button:focus-visible { outline: 3px solid var(--rosso); outline-offset: 2px; }
+
+  #voci { list-style: none; margin: 0; padding: 0; }
+  #voci li { border-bottom: 1px solid var(--linea); }
+  #voci li:last-child { border-bottom: 0; }
+  #voci li:first-child { background: var(--carta); }
+  .voce {
+    display: flex; align-items: center; gap: 12px;
+    width: 100%; min-height: 52px; padding: 8px 16px;
+    border: 0; background: none; font: inherit; color: inherit;
+    text-align: left; cursor: pointer;
+  }
+  .voce i { flex: none; width: 12px; height: 12px; border-radius: 50%; }
+  .voce .nome { flex: 1; }
+  .voce[data-id="tutto"] .nome { font-weight: 600; }
+  .voce small { color: var(--mare); font-size: .85rem; }
+  .sw {
+    position: relative; flex: none; width: 40px; height: 24px;
+    border-radius: 999px; background: var(--linea); transition: background .15s;
+  }
+  .sw::after {
+    content: ""; position: absolute; top: 3px; left: 3px;
+    width: 18px; height: 18px; border-radius: 50%; background: #fff;
+    box-shadow: 0 1px 2px rgba(0,0,0,.3); transition: transform .15s;
+  }
+  .voce[aria-checked="true"] .sw { background: var(--ardesia); }
+  .voce[aria-checked="true"] .sw::after { transform: translateX(16px); }
+  @media (prefers-reduced-motion: reduce) { .sw, .sw::after { transition: none; } }
   footer {
     padding: 8px 16px;
     background: #fff;
@@ -105,7 +127,12 @@
     <h1>Etnico Genova</h1>
     <button id="conteggio" type="button"></button>
   </div>
-  <div id="filtri" role="group" aria-label="Filtra per cucina"></div>
+  <button id="apriFiltri" type="button" aria-haspopup="dialog">
+    <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M3 5h18l-7 8v6l-4 2v-8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+    </svg>
+    <span>Filtri</span><b id="statoFiltri"></b>
+  </button>
 </header>
 <div id="mappa" role="application" aria-label="Mappa dei ristoranti etnici di Genova"></div>
 <dialog id="elenco">
@@ -114,6 +141,13 @@
     <button type="button" id="chiudi" aria-label="Chiudi">✕</button>
   </div>
   <ol id="righe"></ol>
+</dialog>
+<dialog id="pannelloFiltri" aria-label="Filtri per cucina">
+  <div class="testa">
+    <h2>Filtri</h2>
+    <button type="button" id="chiudiFiltri" aria-label="Chiudi">✕</button>
+  </div>
+  <ul id="voci"></ul>
 </dialog>
 <footer>
   Il sito è in continuo aggiornamento. Per contribuire, vai sul
@@ -165,39 +199,51 @@ function disegna() {
 }
 
 function filtri() {
-  const box = document.getElementById("filtri");
-  const cucine = [...new Set(ristoranti.map(r => r.cucina))].sort();
+  const cucine = [...new Set(ristoranti.map(r => r.cucina))]
+    .sort((a, b) => a.localeCompare(b, "it"));
   cucine.forEach(c => attive.add(c));
-  const chips = new Map();
+
+  const pannello = document.getElementById("pannelloFiltri");
+  const voci = document.getElementById("voci");
+  const stato = document.getElementById("statoFiltri");
+
+  const voce = (id, nome, col, n) => `<li>
+    <button type="button" class="voce" role="switch" data-id="${id}">
+      <i style="background:${col}"></i><span class="nome">${esc(nome)}</span>
+      <small>${n}</small><span class="sw"></span>
+    </button></li>`;
+
+  voci.innerHTML = voce("tutto", "Tutto", "transparent", ristoranti.length)
+    + cucine.map((c, i) =>
+        voce(i, c, colore(c), ristoranti.filter(r => r.cucina === c).length)).join("");
 
   const aggiorna = () => {
-    chips.forEach((b, c) => b.setAttribute("aria-pressed", attive.has(c)));
-    tutto.setAttribute("aria-pressed", attive.size === cucine.length);
+    voci.querySelectorAll(".voce").forEach(b => {
+      const acceso = b.dataset.id === "tutto"
+        ? attive.size === cucine.length
+        : attive.has(cucine[b.dataset.id]);
+      b.setAttribute("aria-checked", acceso);
+    });
+    stato.textContent = `${attive.size}/${cucine.length}`;
     disegna();
   };
 
-  const tutto = document.createElement("button");
-  tutto.className = "chip";
-  tutto.textContent = "Tutto";
-  tutto.onclick = () => {
-    if (attive.size === cucine.length) attive.clear();
-    else cucine.forEach(c => attive.add(c));
+  voci.onclick = e => {
+    const b = e.target.closest(".voce");
+    if (!b) return;
+    if (b.dataset.id === "tutto") {
+      if (attive.size === cucine.length) attive.clear();
+      else cucine.forEach(c => attive.add(c));
+    } else {
+      const c = cucine[b.dataset.id];
+      attive.has(c) ? attive.delete(c) : attive.add(c);
+    }
     aggiorna();
   };
-  box.appendChild(tutto);
 
-  cucine.forEach(c => {
-    const b = document.createElement("button");
-    b.className = "chip";
-    b.style.setProperty("--c", colore(c));
-    b.innerHTML = `<i></i>${esc(c)}`;
-    b.onclick = () => {
-      attive.has(c) ? attive.delete(c) : attive.add(c);
-      aggiorna();
-    };
-    chips.set(c, b);
-    box.appendChild(b);
-  });
+  document.getElementById("apriFiltri").onclick = () => pannello.showModal();
+  document.getElementById("chiudiFiltri").onclick = () => pannello.close();
+  pannello.addEventListener("click", e => { if (e.target === pannello) pannello.close(); });
   aggiorna();
 }
 
