@@ -4,8 +4,6 @@
 - nome: Tamashi Fish Market
   cucina: giapponese
   indirizzo: Salita Pollaiuoli, 30 R, 16123 Genova GE, Italia
-  lat: 44.4064445
-  lng: 8.9216379
 
 - nome: Tamashi Ramen
   cucina: giapponese
@@ -16,8 +14,6 @@
 - nome: Byblos
   cucina: libanese
   indirizzo: Molo Ponte Morosini, 16, 16126 Genova GE, Italia
-  lat: 44.4064367
-  lng: 8.8907383
 
 - nome: Big Belly
   cucina: vietnamita
