@@ -30,3 +30,20 @@
   indirizzo: Via Guglielmo Oberdan, 22r, 16167 Genova GE, Italia
   lat: 44.38512
   lng: 9.03307
+
+- nome: Marrakech1
+  cucina: marocchina
+  indirizzo: Via Guglielmo Oberdan, 22r, 16167 Genova GE, Italia
+
+- nome: Tabarca cucina iberica
+  cucina: spagnola
+  indirizzo: Piazza Bandiera, 27R, 16124 Genova GE, Italia
+
+- nome: Mamacita's
+  cucina: messicana
+  indirizzo: Piazza Bandiera, 27/R, 16124 Genova GE, Italia
+
+- nome: Veracruz
+  cucina: messicana
+  indirizzo: Piazza Bandiera, 27/R, 16124 Genova GE, Italia
+
