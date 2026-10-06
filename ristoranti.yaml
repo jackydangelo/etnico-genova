@@ -10,11 +10,11 @@
 - nome: Tamashi Ramen
   cucina: giapponese
   indirizzo: Vico Falamonica, 25r, 16123 Genova GE, Italia
+  lat: 44.40867
+  lng: 8.93322
 
 - nome: Byblos
   cucina: libanese
   indirizzo: Molo Ponte Morosini, 16, 16126 Genova GE, Italia
   lat: 44.4064367
   lng: 8.8907383
-
-
