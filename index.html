@@ -82,7 +82,7 @@
     border: 0; background: none; font: inherit; color: inherit;
     text-align: left; cursor: pointer;
   }
-  .voce i { flex: none; width: 12px; height: 12px; border-radius: 50%; }
+  .voce i { flex: none; width: 10px; height: 10px; border-radius: 50%; }
   .voce .nome { flex: 1; }
   .voce[data-id="tutto"] .nome { font-weight: 600; }
   .voce small { color: var(--mare); font-size: .85rem; }
@@ -109,7 +109,7 @@
   footer a:focus-visible { outline: 3px solid var(--rosso); outline-offset: 2px; }
   #mappa { width: 100%; height: 100%; }
   .pin {
-    width: 28px; height: 28px; border-radius: 50%;
+    width: 16px; height: 16px; margin: 6px; border-radius: 50%;
     background: var(--c); color: #fff;
     border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.35);
   }
@@ -162,10 +162,21 @@
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c =>
   ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
+// Colori molto diversi tra loro, assegnati alle cucine nell'ordine in cui
+// compaiono in ristoranti.yaml. Oltre i 24 se ne generano altri in automatico.
+const PALETTE = [
+  "#D55E00", "#0072B2", "#009E73", "#CC79A7", "#E69F00", "#56B4E9",
+  "#6A3D9A", "#8C564B", "#00A0A0", "#7A7A00", "#E7298A", "#444444",
+  "#BE0032", "#1F2A6B", "#8DB600", "#2B3D26", "#F99379", "#A0A0A0",
+  "#C2B280", "#882D17", "#F3C300", "#A1CAF1", "#B000B0", "#00D26A"
+];
+const colori = new Map();
 const colore = cucina => {
-  let h = 0;
-  for (const ch of cucina) h = (h * 31 + ch.charCodeAt(0)) % 360;
-  return `hsl(${h}, 55%, 40%)`;
+  if (!colori.has(cucina)) {
+    const i = colori.size;
+    colori.set(cucina, PALETTE[i] ?? `hsl(${(i * 137.5) % 360}, 65%, 42%)`);
+  }
+  return colori.get(cucina);
 };
 
 const mappa = L.map("mappa", { zoomControl: true }).setView([44.4056, 8.9463], 13);
@@ -277,6 +288,7 @@ fetch("ristoranti.yaml")
   .then(r => { if (!r.ok) throw new Error("ristoranti.yaml non trovato"); return r.text(); })
   .then(testo => {
     const dati = jsyaml.load(testo) || [];
+    dati.forEach(r => colore(r.cucina));
     const senza = dati.filter(r => typeof r.lat !== "number" || typeof r.lng !== "number");
     senza.forEach(r => console.warn("Senza coordinate, non mostrato:", r.nome));
     ristoranti = dati.filter(r => !senza.includes(r));
