@@ -67,8 +67,10 @@
   }
   #apriFiltri b { color: var(--mare); font-weight: 600; }
   #apriFiltri:focus-visible, .leaflet-marker-icon:focus-visible, .voce:focus-visible,
-  #conteggio:focus-visible, #chiudi:focus-visible, #chiudiFiltri:focus-visible,
+  #conteggio:focus-visible,
   #righe li > button:focus-visible { outline: 3px solid var(--rosso); outline-offset: 2px; }
+  #chiudi, #chiudi:focus, #chiudi:focus-visible,
+  #chiudiFiltri, #chiudiFiltri:focus, #chiudiFiltri:focus-visible { outline: none; }
 
   #voci { list-style: none; margin: 0; padding: 0; }
   #voci li { border-bottom: 1px solid var(--linea); }
