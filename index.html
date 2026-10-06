@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Etnico Genova</title>
+<title>Ristoranti etnici a Genova</title>
 <meta name="description" content="Mappa dei ristoranti etnici di Genova.">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <style>
@@ -18,7 +18,7 @@
   html, body { height: 100%; margin: 0; }
   body {
     display: grid;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto 1fr auto;
     height: 100dvh;
     font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
     color: var(--ardesia);
@@ -74,6 +74,15 @@
   .chip i { width: 10px; height: 10px; border-radius: 50%; background: var(--c, var(--ardesia)); }
   .chip[aria-pressed="true"] { background: var(--ardesia); border-color: var(--ardesia); color: #fff; }
   .chip:focus-visible, .leaflet-marker-icon:focus-visible { outline: 3px solid var(--rosso); outline-offset: 2px; }
+  footer {
+    padding: 8px 16px;
+    background: #fff;
+    border-top: 1px solid var(--linea);
+    font-size: .8rem;
+    text-align: center;
+  }
+  footer a { color: var(--mare); }
+  footer a:focus-visible { outline: 3px solid var(--rosso); outline-offset: 2px; }
   #mappa { width: 100%; height: 100%; }
   .pin {
     width: 28px; height: 28px; border-radius: 50%;
@@ -106,6 +115,10 @@
   </div>
   <ol id="righe"></ol>
 </dialog>
+<footer>
+  Il sito è in continuo aggiornamento. Per contribuire, vai sul
+  <a href="https://github.com/jackydangelo/etnico-genova" target="_blank" rel="noopener">repository GitHub</a>.
+</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
