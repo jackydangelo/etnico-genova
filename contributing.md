@@ -1,5 +1,5 @@
 ## Come contribuire
-Ristoranti etnici aGenova è una selezione curata manualmente da una singola persona.
+Ristoranti etnici a Genova è una selezione curata manualmente da una singola persona.
 
 Per aggiungere, modificare o eliminare ristoranti occorre semplicemente i seguenti passi:
 
