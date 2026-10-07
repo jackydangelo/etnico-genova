@@ -64,8 +64,11 @@
 - nome: Shapla
   cucina: indiana
   indirizzo: V. Colombo, 14R, 16121 Genova GE, Italia
+  lat: 44.40654
+  lng: 8.94115
 
 - nome: Bombay Tandoori
   cucina: indiana
   indirizzo: Via Caffa, 7r, 16129 Genova GE, Italia
-  
+  lat: 44.40299
+  lng: 8.95419
