@@ -94,6 +94,8 @@
 - nome: Brisas Peruanas
   cucina: peruviana
   indirizzo: Corso Maurizio Quadrio, 4r, 16128 Genova GE, Italia
+  lat: 44.40233
+  lng: 8.93129
 
 - nome: Mi Rico Perù
   cucina: peruviana
@@ -102,4 +104,3 @@
 - nome: Il Mondo
   cucina: cinese
   indirizzo: MOG, Palazzo Ducale, Via XX Settembre, 75R, 16124 Genova GE, Italia
-
