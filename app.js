@@ -32,19 +32,39 @@ let visibili = [];
 function disegna() {
   gruppo.clearLayers();
   visibili = ristoranti.filter(r => attive.has(r.cucina));
+  // Ristoranti con le stesse coordinate (es. stesso mercato) condividono un unico pallino.
+  const gruppi = new Map();
   visibili.forEach(r => {
+    const k = `${r.lat.toFixed(5)},${r.lng.toFixed(5)}`;
+    if (!gruppi.has(k)) gruppi.set(k, []);
+    gruppi.get(k).push(r);
+  });
+
+  gruppi.forEach(lista => {
+    const cols = [...new Set(lista.map(r => colore(r.cucina)))];
+    const fondo = cols.length === 1
+      ? cols[0]
+      : `conic-gradient(${cols.map((c, i) =>
+          `${c} ${(i * 100 / cols.length).toFixed(2)}% ${((i + 1) * 100 / cols.length).toFixed(2)}%`
+        ).join(", ")})`;
     const icona = L.divIcon({
       className: "",
-      html: `<div class="pin" style="--c:${colore(r.cucina)}"></div>`,
+      html: `<div class="pin" style="--c:${fondo}"></div>`,
       iconSize: [28, 28], iconAnchor: [14, 14], popupAnchor: [0, -14]
     });
-    const sito = r.sito ? `<p><a href="${esc(r.sito)}" target="_blank" rel="noopener">Sito web</a></p>` : "";
-    r.marker = L.marker([r.lat, r.lng], { icon: icona, title: r.nome })
-      .bindPopup(`<div class="popup"><h2>${esc(r.nome)}</h2>
-        <p class="cucina">${esc(r.cucina)}</p>
+    const scheda = r => {
+      const sito = r.sito ? `<p><a href="${esc(r.sito)}" target="_blank" rel="noopener">Sito web</a></p>` : "";
+      return `<div class="scheda"><h2>${esc(r.nome)}</h2>
+        <p class="cucina"><i style="background:${colore(r.cucina)}"></i>${esc(r.cucina)}</p>
         <p>${esc(r.indirizzo)}</p>
-        ${r.note ? `<p>${esc(r.note)}</p>` : ""}${sito}</div>`)
+        ${r.note ? `<p>${esc(r.note)}</p>` : ""}${sito}</div>`;
+    };
+    const marker = L.marker([lista[0].lat, lista[0].lng], {
+      icon: icona, title: lista.map(r => r.nome).join(" · ")
+    })
+      .bindPopup(`<div class="popup">${lista.map(scheda).join("")}</div>`, { maxHeight: 280 })
       .addTo(gruppo);
+    lista.forEach(r => { r.marker = marker; });
   });
   document.getElementById("conteggio").textContent =
     visibili.length === 1 ? "1 ristorante" : `${visibili.length} ristoranti`;
