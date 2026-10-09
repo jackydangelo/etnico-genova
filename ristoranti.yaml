@@ -172,19 +172,27 @@
 - nome: Asi Es Mi Perú
   cucina: peruviana
   indirizzo: Via Chiabrera, 52r, 16123 Genova GE, Italia
+  lat: 44.40703
+  lng: 8.93027
 
 - nome: La Furia Chalaca
   cucina: peruviana
   indirizzo: Via dei Macelli di Soziglia, 14r, 16123 Genova GE, Italia
+  lat: 44.4098
+  lng: 8.93302
 
-- nome: Comidas Ecuatorianas 
+- nome: Comidas Ecuatorianas
   cucina: peruviana
   indirizzo: Via Giovanni Tommaso Invrea, 54, 16129 Genova GE, Italia
 
-- nome: Tierra nuestra 
+- nome: Tierra nuestra
   cucina: ecuadoriana
   indirizzo: Salita di S. Paolo, 16, 16126 Genova GE, Italia
+  lat: 44.41583
+  lng: 8.9213
 
-- nome: Arabica 
+- nome: Arabica
   cucina: marocchina
   indirizzo: Via Antonio Gramsci, 171, 16126 Genova GE, Italia
+  lat: 44.47703
+  lng: 8.92967
