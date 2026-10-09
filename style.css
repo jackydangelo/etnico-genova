@@ -108,3 +108,7 @@ footer a:focus-visible { outline: 3px solid var(--rosso); outline-offset: 2px; }
 .popup p { margin: 2px 0; font-size: .85rem; }
 .popup .cucina { color: var(--mare); font-weight: 600; }
 #errore { padding: 12px 16px; background: #fdecee; color: var(--rosso); font-size: .9rem; }
+
+.popup .scheda + .scheda { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--linea); }
+.popup .cucina { display: flex; align-items: center; gap: 6px; }
+.popup .cucina i { flex: none; width: 8px; height: 8px; border-radius: 50%; }
