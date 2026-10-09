@@ -144,3 +144,21 @@
   indirizzo: Salita Di Santa Maria Di Castello, 32r, 16123, Genova Italia
   lat: 44.40610
   lng: 8.92896
+
+- nome: Emekus Kitchen
+  cucina: nigeriana
+  indirizzo:  Via Umberto Bertolotti, 71r, 16152 Genova GE, Italia
+
+- nome: Habanero
+  cucina: messicana
+  indirizzo: Via Trento, 79r, 16145 Genova GE, Italia
+
+- nome: Taqueria Mamacita's
+  cucina: messicana
+  indirizzo: Via di Prè, 115R, Via di Prè, 115, 16126 Genova GE, Italia
+
+- nome: Jalapeño
+  cucina: messicana
+  indirizzo: Via della Maddalena, 52R, 16124 Genova GE, Italia
+
+
