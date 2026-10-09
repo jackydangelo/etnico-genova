@@ -1,6 +1,12 @@
 # Un ristorante per voce. Campi obbligatori: nome, cucina, indirizzo.
 # lat e lng si possono scrivere a mano oppure farli compilare a geocode.mjs.
 
+- nome: Chakula Chema
+  cucina: kenyota
+  indirizzo: Via XX Settembre, 75R, 16124 Genova GE, Italia
+  lat: 44.407
+  lng: 8.9351
+  
 - nome: Tamashi Fish Market
   cucina: giapponese
   indirizzo: Salita Pollaiuoli, 30 R, 16123 Genova GE, Italia
@@ -108,9 +114,3 @@
   indirizzo: Via della Libertà, 4, 16129 Genova GE, Italia
   lat: 44.40165
   lng: 8.94924
-
-- nome: Chakula Chema
-  cucina: kenyota
-  indirizzo: Via XX Settembre, 75R, 16124 Genova GE, Italia
-  lat: 44.407
-  lng: 8.9351
