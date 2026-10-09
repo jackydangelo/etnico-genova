@@ -160,6 +160,8 @@
 - nome: Taqueria Mamacita's
   cucina: messicana
   indirizzo: Via di Prè, 115, 16126 Genova GE, Italia
+  lat: 44.41477
+  lng: 8.92486
 
 - nome: Jalapeño
   cucina: messicana
