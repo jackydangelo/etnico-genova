@@ -199,11 +199,14 @@
   lat: 44.40642
   lng: 8.94067
 
-- nome: Jù Xuan 
+- nome: Jù Xuan
   cucina: cinese
   indirizzo: Via Filippo Turati, 26, 16128 Genova GE, Italia
+  lat: 44.40767
+  lng: 8.92869
 
-- nome: Da Chan 
+- nome: Da Chan
   cucina: cinese
   indirizzo: Via XX Settembre, 269/R, 16121 Genova GE, Italia
-
+  lat: 44.40495
+  lng: 8.9435
