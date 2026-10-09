@@ -147,11 +147,15 @@
 
 - nome: Emekus Kitchen
   cucina: nigeriana
-  indirizzo:  Via Umberto Bertolotti, 71r, 16152 Genova GE, Italia
+  indirizzo: Via Umberto Bertolotti, 71r, 16152 Genova GE, Italia
+  lat: 44.41447
+  lng: 8.8697
 
 - nome: Habanero
   cucina: messicana
   indirizzo: Via Trento, 79r, 16145 Genova GE, Italia
+  lat: 44.39967
+  lng: 8.95488
 
 - nome: Taqueria Mamacita's
   cucina: messicana
@@ -160,5 +164,5 @@
 - nome: Jalapeño
   cucina: messicana
   indirizzo: Via della Maddalena, 52R, 16124 Genova GE, Italia
-
-
+  lat: 44.4111
+  lng: 8.93023
