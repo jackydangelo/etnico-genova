@@ -117,7 +117,9 @@
 
 - nome: O Boteco
   cucina: portoghese
-  indirizzo: Salita di San Francesco 2 Palazzo Della Meridiana, 16124, Genova Italia
+  indirizzo: Salita di San Francesco 2, 16124 Genova
+  lat: 44.41193
+  lng: 8.93142
 
 - nome: Mythos
   cucina: greca
@@ -140,3 +142,6 @@
 - nome: Allora
   cucina: libanese
   indirizzo: Salita Di Santa Maria Di Castello, 32r, 16123, Genova Italia
+  lat: 44.40610
+  lng: 8.92896
+
