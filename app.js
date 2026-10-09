@@ -18,11 +18,66 @@ const colore = cucina => {
   return colori.get(cucina);
 };
 
-const mappa = L.map("mappa", { zoomControl: true }).setView([44.4056, 8.9463], 13);
-L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  maxZoom: 19,
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(mappa);
+const mappa = L.map("mappa", { zoomControl: true, minZoom: 3, maxZoom: 19 })
+  .setView([44.4056, 8.9463], 13);
+
+// Mappa di base: OpenFreeMap (stile Positron, vettoriale, senza icone di musei/chiese ecc.).
+// Se non si carica (librerie assenti, niente WebGL, errore di rete) si torna a OpenStreetMap.
+const ATTR_OSM = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>';
+const ATTR_OFM = '<a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a> '
+  + '&copy; <a href="https://openmaptiles.org/" target="_blank" rel="noopener">OpenMapTiles</a> '
+  + 'Data from <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>';
+
+let vettoriale = null;
+let stileCaricato = false;
+let ripiegato = false;
+
+function ripiegaSuOSM() {
+  if (ripiegato) return;
+  ripiegato = true;
+  if (vettoriale) mappa.removeLayer(vettoriale);
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19, attribution: ATTR_OSM
+  }).addTo(mappa);
+}
+
+const webglDisponibile = () => {
+  try {
+    const c = document.createElement("canvas");
+    return !!(c.getContext("webgl2") || c.getContext("webgl"));
+  } catch (e) { return false; }
+};
+
+// Nasconde i punti di interesse (musei, chiese, cimiteri, moschee, ecc.).
+function nascondiPOI(gl) {
+  gl.getStyle().layers.forEach(l => {
+    if (l.id.startsWith("poi") || l["source-layer"] === "poi")
+      gl.setLayoutProperty(l.id, "visibility", "none");
+  });
+}
+
+if (window.maplibregl && L.maplibreGL && webglDisponibile()) {
+  try {
+    vettoriale = L.maplibreGL({
+      style: "https://tiles.openfreemap.org/styles/positron",
+      attribution: ATTR_OFM,
+      attributionControl: false
+    }).addTo(mappa);
+    const gl = vettoriale.getMaplibreMap();
+    gl.once("load", () => {
+      if (ripiegato) return;
+      stileCaricato = true;
+      try { nascondiPOI(gl); } catch (e) { console.warn("POI non nascosti:", e); }
+    });
+    gl.on("error", () => { if (!stileCaricato) ripiegaSuOSM(); });
+    setTimeout(() => { if (!stileCaricato) ripiegaSuOSM(); }, 8000);
+  } catch (e) {
+    console.warn("Mappa vettoriale non disponibile:", e);
+    ripiegaSuOSM();
+  }
+} else {
+  ripiegaSuOSM();
+}
 
 const gruppo = L.layerGroup().addTo(mappa);
 let ristoranti = [];
