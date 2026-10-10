@@ -44,7 +44,7 @@ jobs:
       - name: Prepara i file del sito
         run: |
           mkdir _site
-          cp index.html style.css app.js ristoranti.yaml _site/
+          cp index.html style.css app.js ristoranti.yaml favicon.svg apple-touch-icon.png _site/
 
       - uses: actions/configure-pages@v5
 
