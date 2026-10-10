@@ -42,7 +42,7 @@ Se una voce non ha le coordinate (`lat` e `lng`), a ogni modifica una GitHub Act
 
 ## Come contribuire
 
-Per aggiungere o correggere un ristorante leggi [CONTRIBUTING.md](CONTRIBUTING.md).
+Per aggiungere o correggere un ristorante leggi [contributing.md](contributing.md).
 
 ## Crediti
 
