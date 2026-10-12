@@ -119,3 +119,5 @@ footer a:focus-visible { outline: 3px solid var(--rosso); outline-offset: 2px; }
   color: var(--mare);
 }
 .sezione + .sezione { border-top: 1px solid var(--linea); }
+
+.voce.vuota .nome, .voce.vuota small, .voce.vuota i { opacity: .45; }
