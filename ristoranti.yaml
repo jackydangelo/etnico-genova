@@ -1,5 +1,6 @@
 # Un ristorante per voce. Campi obbligatori: nome, cucina, indirizzo.
 # lat e lng si possono scrivere a mano oppure farli compilare a geocode.mjs.
+# tipo da compilare se diverso da Ristorante (es. Rosticceria)
 
 - nome: Chakula Chema
   cucina: kenyota
@@ -214,5 +215,6 @@
 - nome: Anatolia
   cucina: turca
   indirizzo: Via San Martino 50r, 16131 Genova GE, Italia
+  tipo: Rosticceria
   lat: 44.40578
   lng: 8.97195
