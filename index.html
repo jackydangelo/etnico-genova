@@ -7,7 +7,7 @@
 <meta name="description" content="Mappa dei ristoranti etnici di Genova.">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.min.css">
-<link rel="stylesheet" href="style.css?v=2">
+<link rel="stylesheet" href="style.css?v=3">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#ffffff">
@@ -32,17 +32,24 @@
 <div id="mappa" role="application" aria-label="Mappa dei ristoranti etnici di Genova"></div>
 <dialog id="elenco">
   <div class="testa">
-    <h2>Ristoranti</h2>
+    <h2>Locali</h2>
     <button type="button" id="chiudi" aria-label="Chiudi">✕</button>
   </div>
   <ol id="righe"></ol>
 </dialog>
-<dialog id="pannelloFiltri" aria-label="Filtri per cucina">
+<dialog id="pannelloFiltri" aria-label="Filtri">
   <div class="testa">
     <h2>Filtri</h2>
     <button type="button" id="chiudiFiltri" aria-label="Chiudi">✕</button>
   </div>
-  <ul id="voci"></ul>
+  <section class="sezione">
+    <h3>Tipo locale</h3>
+    <ul id="vociTipo" class="voci"></ul>
+  </section>
+  <section class="sezione">
+    <h3>Tipo cucina</h3>
+    <ul id="voci" class="voci"></ul>
+  </section>
 </dialog>
 <footer>
   Il sito è in continuo aggiornamento. Per contribuire, vai sul
@@ -53,6 +60,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.min.js"></script>
 <script src="https://unpkg.com/@maplibre/maplibre-gl-leaflet@0.0.20/leaflet-maplibre-gl.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
-<script src="app.js?v=3"></script>
+<script src="app.js?v=4"></script>
 </body>
 </html>
