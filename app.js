@@ -81,12 +81,13 @@ if (window.maplibregl && L.maplibreGL && webglDisponibile()) {
 
 const gruppo = L.layerGroup().addTo(mappa);
 let ristoranti = [];
-const attive = new Set();
+const attive = new Set();      // cucine visibili
+const attiveTipi = new Set();  // tipi di locale visibili
 
 let visibili = [];
 function disegna() {
   gruppo.clearLayers();
-  visibili = ristoranti.filter(r => attive.has(r.cucina));
+  visibili = ristoranti.filter(r => attive.has(r.cucina) && attiveTipi.has(r.tipo));
   // Ristoranti con le stesse coordinate (es. stesso mercato) condividono un unico pallino.
   const gruppi = new Map();
   visibili.forEach(r => {
@@ -110,7 +111,7 @@ function disegna() {
     const scheda = r => {
       const sito = r.sito ? `<p><a href="${esc(r.sito)}" target="_blank" rel="noopener">Sito web</a></p>` : "";
       return `<div class="scheda"><h2>${esc(r.nome)}</h2>
-        <p class="cucina"><i style="background:${colore(r.cucina)}"></i>${esc(r.cucina)}</p>
+        <p class="cucina"><i style="background:${colore(r.cucina)}"></i>${esc(r.cucina)} · ${esc(r.tipo)}</p>
         <p>${esc(r.indirizzo)}</p>
         ${r.note ? `<p>${esc(r.note)}</p>` : ""}${sito}</div>`;
     };
@@ -122,16 +123,19 @@ function disegna() {
     lista.forEach(r => { r.marker = marker; });
   });
   document.getElementById("conteggio").textContent =
-    visibili.length === 1 ? "1 ristorante" : `${visibili.length} ristoranti`;
+    visibili.length === 1 ? "1 locale" : `${visibili.length} locali`;
 }
 
 function filtri() {
-  const cucine = [...new Set(ristoranti.map(r => r.cucina))]
-    .sort((a, b) => a.localeCompare(b, "it"));
-  cucine.forEach(c => attive.add(c));
+  const ordina = a => [...new Set(a)].sort((x, y) => x.localeCompare(y, "it"));
+  const gruppi = [
+    { chiavi: ordina(ristoranti.map(r => r.tipo)), attive: attiveTipi, campo: "tipo",
+      ul: document.getElementById("vociTipo"), col: () => "transparent" },
+    { chiavi: ordina(ristoranti.map(r => r.cucina)), attive, campo: "cucina",
+      ul: document.getElementById("voci"), col: colore }
+  ];
 
   const pannello = document.getElementById("pannelloFiltri");
-  const voci = document.getElementById("voci");
   const stato = document.getElementById("statoFiltri");
 
   const voce = (id, nome, col, n) => `<li>
@@ -140,33 +144,37 @@ function filtri() {
       <small>${n}</small><span class="sw"></span>
     </button></li>`;
 
-  voci.innerHTML = voce("tutto", "Tutto", "transparent", ristoranti.length)
-    + cucine.map((c, i) =>
-        voce(i, c, colore(c), ristoranti.filter(r => r.cucina === c).length)).join("");
-
   const aggiorna = () => {
-    voci.querySelectorAll(".voce").forEach(b => {
+    gruppi.forEach(g => g.ul.querySelectorAll(".voce").forEach(b => {
       const acceso = b.dataset.id === "tutto"
-        ? attive.size === cucine.length
-        : attive.has(cucine[b.dataset.id]);
+        ? g.attive.size === g.chiavi.length
+        : g.attive.has(g.chiavi[b.dataset.id]);
       b.setAttribute("aria-checked", acceso);
-    });
-    stato.textContent = `${attive.size}/${cucine.length}`;
+    }));
+    const on = gruppi.reduce((n, g) => n + g.attive.size, 0);
+    const tot = gruppi.reduce((n, g) => n + g.chiavi.length, 0);
+    stato.textContent = `${on}/${tot}`;
     disegna();
   };
 
-  voci.onclick = e => {
-    const b = e.target.closest(".voce");
-    if (!b) return;
-    if (b.dataset.id === "tutto") {
-      if (attive.size === cucine.length) attive.clear();
-      else cucine.forEach(c => attive.add(c));
-    } else {
-      const c = cucine[b.dataset.id];
-      attive.has(c) ? attive.delete(c) : attive.add(c);
-    }
-    aggiorna();
-  };
+  gruppi.forEach(g => {
+    g.chiavi.forEach(k => g.attive.add(k));
+    g.ul.innerHTML = voce("tutto", "Tutto", "transparent", ristoranti.length)
+      + g.chiavi.map((k, i) =>
+          voce(i, k, g.col(k), ristoranti.filter(r => r[g.campo] === k).length)).join("");
+    g.ul.onclick = e => {
+      const b = e.target.closest(".voce");
+      if (!b) return;
+      if (b.dataset.id === "tutto") {
+        if (g.attive.size === g.chiavi.length) g.attive.clear();
+        else g.chiavi.forEach(k => g.attive.add(k));
+      } else {
+        const k = g.chiavi[b.dataset.id];
+        g.attive.has(k) ? g.attive.delete(k) : g.attive.add(k);
+      }
+      aggiorna();
+    };
+  });
 
   document.getElementById("apriFiltri").onclick = () => pannello.showModal();
   document.getElementById("chiudiFiltri").onclick = () => pannello.close();
@@ -182,9 +190,9 @@ document.getElementById("conteggio").onclick = () => {
   ordinati = [...visibili].sort((a, b) => a.nome.localeCompare(b.nome, "it"));
   righe.innerHTML = ordinati.length
     ? ordinati.map((r, i) => `<li><button type="button" data-i="${i}">
-        <strong>${esc(r.nome)}</strong><span>${esc(r.cucina)}</span><span>${esc(r.indirizzo)}</span>
+        <strong>${esc(r.nome)}</strong><span>${esc(r.cucina)} · ${esc(r.tipo)}</span><span>${esc(r.indirizzo)}</span>
       </button></li>`).join("")
-    : '<li class="vuoto">Nessuna cucina selezionata.</li>';
+    : '<li class="vuoto">Nessun locale selezionato.</li>';
   elenco.showModal();
 };
 righe.onclick = e => {
@@ -202,7 +210,12 @@ fetch("ristoranti.yaml")
   .then(r => { if (!r.ok) throw new Error("ristoranti.yaml non trovato"); return r.text(); })
   .then(testo => {
     const dati = jsyaml.load(testo) || [];
-    dati.forEach(r => colore(r.cucina));
+    dati.forEach(r => {
+      // "tipo" è facoltativo: se manca, il locale è un Ristorante.
+      const tipo = String(r.tipo ?? "").trim() || "Ristorante";
+      r.tipo = tipo.charAt(0).toUpperCase() + tipo.slice(1).toLowerCase();
+      colore(r.cucina);
+    });
     const senza = dati.filter(r => typeof r.lat !== "number" || typeof r.lng !== "number");
     senza.forEach(r => console.warn("Senza coordinate, non mostrato:", r.nome));
     ristoranti = dati.filter(r => !senza.includes(r));
