@@ -3,224 +3,224 @@
 # tipo da compilare se diverso da Ristorante (es. Rosticceria)
 
 - nome: Chakula Chema
-  cucina: kenyota
+  cucina: Kenyota
   indirizzo: Via XX Settembre, 75R, 16124 Genova GE, Italia
   lat: 44.407
   lng: 8.9351
 
 - nome: Tamashi Fish Market
-  cucina: giapponese
+  cucina: Giapponese
   indirizzo: Salita Pollaiuoli, 30 R, 16123 Genova GE, Italia
   lat: 44.40676
   lng: 8.93226
 
 - nome: Tamashi Ramen
-  cucina: giapponese
+  cucina: Giapponese
   indirizzo: Vico Falamonica, 25r, 16123 Genova GE, Italia
   lat: 44.40867
   lng: 8.93322
 
 - nome: Byblos
-  cucina: libanese
+  cucina: Libanese
   indirizzo: Molo Ponte Morosini, 16, 16126 Genova GE, Italia
   lat: 44.41171
   lng: 8.92549
 
 - nome: Big Belly
-  cucina: vietnamita
+  cucina: Vietnamita
   indirizzo: Via dei Macelli di Soziglia, 15r, 16123 Genova GE, Italia
   lat: 44.4098
   lng: 8.93302
 
 - nome: Soraya
-  cucina: iraniana
+  cucina: Iraniana
   indirizzo: Via Guglielmo Oberdan, 22r, 16167 Genova GE, Italia
   lat: 44.38512
   lng: 9.03307
 
 - nome: Marrakech1
-  cucina: marocchina
+  cucina: Marocchina
   indirizzo: Piazza Colombo, 29 r, 16121 Genova GE, Italia
   lat: 44.4064
   lng: 8.94285
 
 - nome: Tabarca cucina iberica
-  cucina: spagnola
+  cucina: Spagnola
   indirizzo: Piazza Bandiera, 27R, 16124 Genova GE, Italia
   lat: 44.41437
   lng: 8.92894
 
 - nome: Mamacita's
-  cucina: messicana
+  cucina: Messicana
   indirizzo: Via Fieschi, 78r, 16128 Genova GE, Italia
   lat: 44.40501
   lng: 8.93646
 
 - nome: Veracruz
-  cucina: messicana
+  cucina: Messicana
   indirizzo: Via di S. Bernardo, 59r, 16123 Genova GE, Italia
   lat: 44.40627
   lng: 8.9305
 
 - nome: El Templo Del Sabor Venezolano
-  cucina: venezuelana
+  cucina: Venezuelana
   indirizzo: Campetto, 38r, 16123 Genova GE, Italia
   lat: 44.40894
   lng: 8.93165
 
 - nome: Shapla
-  cucina: indiana
+  cucina: Indiana
   indirizzo: V. Colombo, 14R, 16121 Genova GE, Italia
   lat: 44.40654
   lng: 8.94115
 
 - nome: Bombay Tandoori
-  cucina: indiana
+  cucina: Indiana
   indirizzo: Via Caffa, 7r, 16129 Genova GE, Italia
   lat: 44.40299
   lng: 8.95419
 
 - nome: Jamila
-  cucina: senegalese
+  cucina: Senegalese
   indirizzo: Via dei Giustiniani, 11, 16123 Genova GE, Italia
   lat: 44.40697
   lng: 8.93007
 
 - nome: Josna
-  cucina: indiana
+  cucina: Indiana
   indirizzo: Via di Porta Soprana, 31R, 16123 Genova GE, Italia
   lat: 44.40608
   lng: 8.93377
 
 - nome: Kowalski
-  cucina: polacca
+  cucina: Polacca
   indirizzo: Via dei Giustiniani, 3R, 16123 Genova GE, Italia
   lat: 44.40672
   lng: 8.93072
 
 - nome: Brisas Peruanas
-  cucina: peruviana
+  cucina: Peruviana
   indirizzo: Corso Maurizio Quadrio, 4r, 16128 Genova GE, Italia
   lat: 44.40233
   lng: 8.93129
 
 - nome: Mi Rico Perù
-  cucina: peruviana
+  cucina: Peruviana
   indirizzo: Via XX Settembre, 75R, 16124 Genova GE, Italia
   lat: 44.407
   lng: 8.9351
 
 - nome: Il Mondo
-  cucina: cinese
+  cucina: Cinese
   indirizzo: Via della Libertà, 4, 16129 Genova GE, Italia
   lat: 44.40165
   lng: 8.94924
 
 - nome: O Boteco
-  cucina: portoghese
+  cucina: Portoghese
   indirizzo: Salita di San Francesco 2, 16124 Genova
   lat: 44.41193
   lng: 8.93142
 
 - nome: Mythos
-  cucina: greca
+  cucina: Greca
   indirizzo: Piazzetta S. Carlo, 3r, 16126 Genova GE, Italia
   lat: 44.41524
   lng: 8.92552
 
 - nome: Lina da Rachid
-  cucina: marocchina
+  cucina: Marocchina
   indirizzo: Via Antonio Gramsci 171, 16126 Genova GE, Italia
   lat: 44.41491
   lng: 8.92420
 
 - nome: Jin
-  cucina: cinese
+  cucina: Cinese
   indirizzo: Via Giordano Bruno 27R, 16146, Genova Italia
   lat: 44.39164
   lng: 8.97031
 
 - nome: Allora
-  cucina: libanese
+  cucina: Libanese
   indirizzo: Salita Di Santa Maria Di Castello, 32r, 16123, Genova Italia
   lat: 44.40610
   lng: 8.92896
 
 - nome: Emekus Kitchen
-  cucina: nigeriana
+  cucina: Nigeriana
   indirizzo: Via Umberto Bertolotti, 71r, 16152 Genova GE, Italia
   lat: 44.41447
   lng: 8.8697
 
 - nome: Habanero
-  cucina: messicana
+  cucina: Messicana
   indirizzo: Via Trento, 79r, 16145 Genova GE, Italia
   lat: 44.39967
   lng: 8.95488
 
 - nome: Taqueria Mamacita's
-  cucina: messicana
+  cucina: Messicana
   indirizzo: Via di Prè, 115, 16126 Genova GE, Italia
   lat: 44.41477
   lng: 8.92486
 
 - nome: Jalapeño
-  cucina: messicana
+  cucina: Messicana
   indirizzo: Via della Maddalena, 52R, 16124 Genova GE, Italia
   lat: 44.4111
   lng: 8.93023
 
 - nome: Asi Es Mi Perú
-  cucina: peruviana
+  cucina: Peruviana
   indirizzo: Via Chiabrera, 52r, 16123 Genova GE, Italia
   lat: 44.40703
   lng: 8.93027
 
 - nome: La Furia Chalaca
-  cucina: peruviana
+  cucina: Peruviana
   indirizzo: Via dei Macelli di Soziglia, 14r, 16123 Genova GE, Italia
   lat: 44.4098
   lng: 8.93302
 
 - nome: Comidas Ecuatorianas
-  cucina: ecuadoriana
+  cucina: Ecuadoriana
   indirizzo: Via Giovanni Tomaso Invrea, 54, 16129 Genova GE, Italia
   lat: 44.40474
   lng: 8.95041
 
 - nome: Tierra nuestra
-  cucina: ecuadoriana
+  cucina: Ecuadoriana
   indirizzo: Salita di S. Paolo, 16, 16126 Genova GE, Italia
   lat: 44.41583
   lng: 8.9213
 
 - nome: Haechi korean street food & shop
-  cucina: coreana
+  cucina: Coreana
   indirizzo: Via San Vincenzo, 116, 16121, Genova GE, Italia
   lat: 44.40642
   lng: 8.94067
 
 - nome: Jù Xuan
-  cucina: cinese
+  cucina: Cinese
   indirizzo: Via Filippo Turati, 26, 16128 Genova GE, Italia
   lat: 44.40767
   lng: 8.92869
 
 - nome: Da Chan
-  cucina: cinese
+  cucina: Cinese
   indirizzo: Via XX Settembre, 269/R, 16121 Genova GE, Italia
   lat: 44.40495
   lng: 8.9435
 
 - nome: Anatolia
-  cucina: turca
+  cucina: Turca
   indirizzo: Via San Martino 50r, 16131 Genova GE, Italia
   tipo: Rosticceria
   lat: 44.40578
   lng: 8.97195
 
 - nome: Macao
-  cucina: cinese
+  cucina: Cinese
   indirizzo: Via Napoli 113R, 16134 Genova GE, Italia
   tipo: Rosticceria
   lat: 44.42161
