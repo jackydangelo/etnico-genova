@@ -109,10 +109,17 @@ function disegna() {
       iconSize: [28, 28], iconAnchor: [14, 14], popupAnchor: [0, -14]
     });
     const scheda = r => {
-      const sito = r.sito ? `<p><a href="${esc(r.sito)}" target="_blank" rel="noopener">Sito web</a></p>` : "";
+      const web = u => /^https?:\/\//i.test(String(u ?? "")) ? u : "";
+      const indirizzo = /genova/i.test(r.indirizzo) ? r.indirizzo : `${r.indirizzo}, Genova`;
+      // "maps" nel YAML (facoltativo) sostituisce il link generato dall'indirizzo.
+      const maps = web(r.maps)
+        || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(indirizzo)}`;
+      const sito = web(r.sito)
+        ? `<p><a href="${esc(web(r.sito))}" target="_blank" rel="noopener">Sito web</a></p>` : "";
       return `<div class="scheda"><h2>${esc(r.nome)}</h2>
         <p class="cucina"><i style="background:${colore(r.cucina)}"></i>${esc(r.cucina)} · ${esc(r.tipo)}</p>
         <p>${esc(r.indirizzo)}</p>
+        <p class="vai"><a class="maps" href="${esc(maps)}" target="_blank" rel="noopener">Apri su Maps</a></p>
         ${r.note ? `<p>${esc(r.note)}</p>` : ""}${sito}</div>`;
     };
     const marker = L.marker([lista[0].lat, lista[0].lng], {
