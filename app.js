@@ -151,6 +151,18 @@ function filtri() {
         : g.attive.has(g.chiavi[b.dataset.id]);
       b.setAttribute("aria-checked", acceso);
     }));
+    // Contatori "olistici": ogni voce mostra quanti locali compaiono davvero
+    // con l'altro filtro com'è in questo momento.
+    gruppi.forEach(g => {
+      const altro = gruppi.find(x => x !== g);
+      g.ul.querySelectorAll(".voce").forEach(b => {
+        const id = b.dataset.id;
+        const n = ristoranti.filter(r =>
+          altro.attive.has(r[altro.campo]) && (id === "tutto" || r[g.campo] === g.chiavi[id])).length;
+        b.querySelector("small").textContent = n;
+        b.classList.toggle("vuota", n === 0);
+      });
+    });
     const on = gruppi.reduce((n, g) => n + g.attive.size, 0);
     const tot = gruppi.reduce((n, g) => n + g.chiavi.length, 0);
     stato.textContent = `${on}/${tot}`;
