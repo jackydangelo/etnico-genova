@@ -63,10 +63,10 @@ dialog::backdrop { background: rgba(38, 52, 59, .45); }
 #chiudi, #chiudi:focus, #chiudi:focus-visible,
 #chiudiFiltri, #chiudiFiltri:focus, #chiudiFiltri:focus-visible { outline: none; }
 
-#voci { list-style: none; margin: 0; padding: 0; }
-#voci li { border-bottom: 1px solid var(--linea); }
-#voci li:last-child { border-bottom: 0; }
-#voci li:first-child { background: var(--carta); }
+.voci { list-style: none; margin: 0; padding: 0; }
+.voci li { border-bottom: 1px solid var(--linea); }
+.voci li:last-child { border-bottom: 0; }
+.voci li:first-child { background: var(--carta); }
 .voce {
   display: flex; align-items: center; gap: 12px;
   width: 100%; min-height: 52px; padding: 8px 16px;
@@ -112,3 +112,10 @@ footer a:focus-visible { outline: 3px solid var(--rosso); outline-offset: 2px; }
 .popup .scheda + .scheda { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--linea); }
 .popup .cucina { display: flex; align-items: center; gap: 6px; }
 .popup .cucina i { flex: none; width: 8px; height: 8px; border-radius: 50%; }
+
+.sezione h3 {
+  margin: 0; padding: 12px 16px 6px;
+  font-size: .75rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--mare);
+}
+.sezione + .sezione { border-top: 1px solid var(--linea); }
