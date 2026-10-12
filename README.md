@@ -1,6 +1,6 @@
 # Etnico Genova
 
-Una mappa dei ristoranti etnici di Genova.
+Una mappa dei [ristoranti etnici di Genova](https://jackydangelo.github.io/etnico-genova/).
 
 Il sito mostra la città su una mappa e, per ogni ristorante, un pallino colorato in base al tipo di cucina. Toccando un pallino si apre una scheda con nome, cucina, indirizzo, note e sito web. Si può filtrare per cucina e consultare l'elenco completo dei ristoranti visibili.
 
