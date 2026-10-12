@@ -121,3 +121,11 @@ footer a:focus-visible { outline: 3px solid var(--rosso); outline-offset: 2px; }
 .sezione + .sezione { border-top: 1px solid var(--linea); }
 
 .voce.vuota .nome, .voce.vuota small, .voce.vuota i { opacity: .45; }
+
+.popup .vai { margin: 6px 0; }
+.popup a.maps {
+  display: inline-block; padding: 6px 12px; border-radius: 999px;
+  border: 1px solid var(--ardesia); background: var(--ardesia); color: #fff;
+  font-size: .85rem; text-decoration: none;
+}
+.popup a.maps:focus-visible { outline: 3px solid var(--rosso); outline-offset: 2px; }
