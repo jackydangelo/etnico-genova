@@ -18,6 +18,10 @@ const colore = cucina => {
   return colori.get(cucina);
 };
 
+const temaCorrente = () => document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+const urlStile = () =>
+  `https://tiles.openfreemap.org/styles/${temaCorrente() === "dark" ? "dark" : "positron"}`;
+
 const mappa = L.map("mappa", { zoomControl: true, minZoom: 3, maxZoom: 19 })
   .setView([44.4056, 8.9463], 13);
 
@@ -29,6 +33,7 @@ const ATTR_OFM = '<a href="https://openfreemap.org" target="_blank" rel="noopene
   + 'Data from <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>';
 
 let vettoriale = null;
+let gl = null;
 let stileCaricato = false;
 let ripiegato = false;
 
@@ -37,7 +42,7 @@ function ripiegaSuOSM() {
   ripiegato = true;
   if (vettoriale) mappa.removeLayer(vettoriale);
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    maxZoom: 19, attribution: ATTR_OSM
+    maxZoom: 19, attribution: ATTR_OSM, className: "tile-osm"
   }).addTo(mappa);
 }
 
@@ -59,11 +64,11 @@ function nascondiPOI(gl) {
 if (window.maplibregl && L.maplibreGL && webglDisponibile()) {
   try {
     vettoriale = L.maplibreGL({
-      style: "https://tiles.openfreemap.org/styles/positron",
+      style: urlStile(),
       attribution: ATTR_OFM,
       attributionControl: false
     }).addTo(mappa);
-    const gl = vettoriale.getMaplibreMap();
+    gl = vettoriale.getMaplibreMap();
     gl.once("load", () => {
       if (ripiegato) return;
       stileCaricato = true;
@@ -248,3 +253,46 @@ fetch("ristoranti.yaml")
     d.textContent = "Impossibile caricare i ristoranti: " + e.message;
     document.querySelector("header").after(d);
   });
+
+// --- Modalità chiara/scura ---
+const bottoneTema = document.getElementById("tema");
+const SVG_ICONA = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+  + 'stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">';
+const ICONA_LUNA = SVG_ICONA + '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
+const ICONA_SOLE = SVG_ICONA + '<circle cx="12" cy="12" r="4"/>'
+  + '<path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+
+function aggiornaToggle() {
+  const scuro = temaCorrente() === "dark";
+  bottoneTema.innerHTML = scuro ? ICONA_SOLE : ICONA_LUNA;
+  const etichetta = scuro ? "Passa alla modalità chiara" : "Passa alla modalità scura";
+  bottoneTema.setAttribute("aria-label", etichetta);
+  bottoneTema.title = etichetta;
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.content = scuro ? "#1b2327" : "#ffffff";
+}
+
+function impostaTema(tema, salva) {
+  document.documentElement.dataset.theme = tema;
+  if (salva) { try { localStorage.setItem("tema", tema); } catch (e) {} }
+  aggiornaToggle();
+  if (gl && !ripiegato) {
+    gl.setStyle(urlStile());
+    const rinascondiPOI = () => { try { nascondiPOI(gl); } catch (e) {} };
+    gl.once("style.load", rinascondiPOI);
+    gl.once("idle", rinascondiPOI);
+  }
+}
+
+bottoneTema.onclick = () => impostaTema(temaCorrente() === "dark" ? "light" : "dark", true);
+
+// Finché non scegli tu, il sito segue il tema del telefono.
+const preferenzaSistema = matchMedia("(prefers-color-scheme: dark)");
+if (preferenzaSistema.addEventListener) {
+  preferenzaSistema.addEventListener("change", e => {
+    let salvato = null;
+    try { salvato = localStorage.getItem("tema"); } catch (err) {}
+    if (!salvato) impostaTema(e.matches ? "dark" : "light", false);
+  });
+}
+aggiornaToggle();
