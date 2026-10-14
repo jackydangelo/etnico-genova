@@ -153,7 +153,7 @@ footer a:focus-visible { outline: 3px solid var(--rosso); outline-offset: 2px; }
 .popup a.maps:focus-visible { outline: 3px solid var(--rosso); outline-offset: 2px; }
 
 /* Logo */
-.logo-bg { fill: var(--sfondo); stroke: var(--testo); }
+.logo-bg { fill: #fff; stroke: #26343b; }  /* la bandiera resta sempre bianca con croce rossa */
 
 /* Pulsante chiaro/scuro */
 #tema {
