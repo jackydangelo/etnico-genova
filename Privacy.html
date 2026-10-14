@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<script>
+  // Stesso tema scelto sul resto del sito, applicato prima del primo disegno.
+  (function () {
+    var t = null;
+    try { t = localStorage.getItem("tema"); } catch (e) {}
+    if (t !== "light" && t !== "dark")
+      t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    document.documentElement.dataset.theme = t;
+  })();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Informativa privacy · Etnico Genova</title>
+<meta name="description" content="Informativa sulla privacy di Etnico Genova.">
+<link rel="stylesheet" href="style.css?v=7">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+  a.titolo { color: inherit; text-decoration: none; }
+  main { overflow-y: auto; padding: 20px 16px 32px; }
+  .contenuto { max-width: 680px; margin: 0 auto; font-size: .95rem; line-height: 1.55; }
+  .contenuto h2 { margin: 0 0 4px; font-size: 1.4rem; letter-spacing: -0.01em; }
+  .contenuto h3 { margin: 24px 0 6px; font-size: 1.05rem; }
+  .contenuto p, .contenuto ul { margin: 0 0 10px; }
+  .contenuto ul { padding-left: 20px; }
+  .contenuto a { color: var(--mare); }
+  .contenuto .agg { color: var(--mare); font-size: .85rem; }
+</style>
+</head>
+<body>
+<header>
+  <a class="titolo" href="./" aria-label="Etnico Genova, torna alla mappa">
+    <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+      <rect x=".5" y=".5" width="23" height="23" fill="#fff" stroke="#26343b" style="fill:#fff;stroke:#26343b"/>
+      <path d="M10 0h4v10h10v4H14v10h-4V14H0v-4h10z" fill="#c8102e"/>
+    </svg>
+    <h1>Etnico Genova</h1>
+  </a>
+</header>
+<main>
+  <div class="contenuto">
+    <h2>Informativa sulla privacy</h2>
+    <p class="agg">Ultimo aggiornamento: 14 ottobre 2026</p>
+
+    <h3>Chi tratta i dati</h3>
+    <p>Il titolare è Giacomo D'angelo, che gestisce questo sito come progetto personale e non commerciale. Per qualsiasi richiesta puoi scrivere a <a href="mailto:jacky_1992@hotmail.it">jacky_1992@hotmail.it</a>.</p>
+
+    <h3>Statistiche delle visite</h3>
+    <p>Per capire quante persone usano il sito utilizzo <a href="https://www.goatcounter.com/help/privacy" target="_blank" rel="noopener">GoatCounter</a>, un servizio di statistiche che non usa cookie. Registra dati aggregati: pagine visitate, sito da cui arrivi, paese, browser, sistema operativo e dimensione dello schermo.</p>
+    <p>Non salva il tuo indirizzo IP: IP e informazioni sul browser restano solo in memoria, per un massimo di 8 ore, per riconoscere le visite ripetute, e non vengono scritti nel database. I dati sono ospitati su server nell'Unione Europea (Finlandia e Germania).</p>
+    <p>La base giuridica è il legittimo interesse a capire come viene usato il sito e a migliorarlo (art. 6, par. 1, lett. f, del GDPR).</p>
+
+    <h3>Servizi esterni usati dal sito</h3>
+    <p>Quando apri una pagina, il tuo browser contatta alcuni servizi esterni, che ricevono il tuo indirizzo IP e dati tecnici del browser, come accade con qualsiasi sito web. Io non ho accesso a questi dati.</p>
+    <ul>
+      <li><strong>GitHub Pages</strong>: ospita il sito (<a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">informativa</a>).</li>
+      <li><strong>cdnjs (Cloudflare) e unpkg</strong>: forniscono le librerie per la mappa e per la lettura dei dati (<a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">informativa Cloudflare</a>).</li>
+      <li><strong>OpenFreeMap</strong>: fornisce la mappa (<a href="https://openfreemap.org/privacy/" target="_blank" rel="noopener">informativa</a>). Se non è disponibile, il sito usa <strong>OpenStreetMap</strong> (<a href="https://osmfoundation.org/wiki/Privacy_Policy" target="_blank" rel="noopener">informativa</a>).</li>
+      <li><strong>Google Maps</strong>: solo se tocchi "Apri su Maps". In quel caso lasci questo sito e valgono le condizioni di Google (<a href="https://policies.google.com/privacy" target="_blank" rel="noopener">informativa</a>).</li>
+    </ul>
+    <p>Alcuni di questi fornitori possono trattare i dati anche fuori dall'Unione Europea: per i dettagli e le garanzie adottate rimando alle loro informative.</p>
+
+    <h3>Cosa viene salvato sul tuo dispositivo</h3>
+    <p>Se usi il pulsante chiaro/scuro, il sito ricorda la tua scelta nella memoria locale del browser. Resta sul tuo dispositivo, non viene inviata a nessuno e non serve a identificarti. Cancellando i dati del sito dal browser si cancella anche questa scelta.</p>
+
+    <h3>Cookie</h3>
+    <p>Il sito non imposta cookie e non usa strumenti di pubblicità o di profilazione.</p>
+
+    <h3>Dati sui locali</h3>
+    <p>Nome, indirizzo e sito dei locali sono informazioni pubbliche delle attività. Se sei titolare di un locale e vuoi correggere o rimuovere una scheda, scrivimi all'indirizzo indicato sopra.</p>
+
+    <h3>I tuoi diritti</h3>
+    <p>Ai sensi degli articoli 15-21 del GDPR puoi chiedere l'accesso ai tuoi dati, la rettifica, la cancellazione, la limitazione del trattamento e opporti al trattamento. Poiché le statistiche sono anonime, potrei non essere in grado di risalire ai tuoi dati, ma puoi scrivermi comunque.</p>
+    <p>Hai inoltre il diritto di presentare reclamo al Garante per la protezione dei dati personali (<a href="https://www.garanteprivacy.it" target="_blank" rel="noopener">garanteprivacy.it</a>).</p>
+
+    <h3>Modifiche</h3>
+    <p>Se qualcosa cambia, aggiornerò questa pagina: la data in alto indica l'ultima modifica.</p>
+  </div>
+</main>
+<footer>
+  <a href="./">← Torna alla mappa</a>
+</footer>
+</body>
+</html>
