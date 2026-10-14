@@ -2,12 +2,22 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
+<script>
+  // Tema scelto prima del primo disegno, per evitare lampi di colore.
+  (function () {
+    var t = null;
+    try { t = localStorage.getItem("tema"); } catch (e) {}
+    if (t !== "light" && t !== "dark")
+      t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    document.documentElement.dataset.theme = t;
+  })();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Etnico Genova</title>
 <meta name="description" content="Mappa dei ristoranti etnici di Genova.">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.min.css">
-<link rel="stylesheet" href="style.css?v=5">
+<link rel="stylesheet" href="style.css?v=6">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#ffffff">
@@ -16,18 +26,21 @@
 <header>
   <div class="titolo">
     <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
-      <rect x=".5" y=".5" width="23" height="23" fill="#fff" stroke="#26343b"/>
+      <rect class="logo-bg" x=".5" y=".5" width="23" height="23"/>
       <path d="M10 0h4v10h10v4H14v10h-4V14H0v-4h10z" fill="#c8102e"/>
     </svg>
     <h1>Etnico Genova</h1>
-    <button id="conteggio" type="button"></button>
+    <button id="tema" type="button"></button>
   </div>
+  <div class="riga-filtri">
   <button id="apriFiltri" type="button" aria-haspopup="dialog">
     <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
       <path d="M3 5h18l-7 8v6l-4 2v-8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
     </svg>
     <span>Filtri</span><b id="statoFiltri"></b>
   </button>
+  <button id="conteggio" type="button"></button>
+  </div>
 </header>
 <div id="mappa" role="application" aria-label="Mappa dei ristoranti etnici di Genova"></div>
 <dialog id="elenco">
@@ -60,6 +73,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/4.7.1/maplibre-gl.min.js"></script>
 <script src="https://unpkg.com/@maplibre/maplibre-gl-leaflet@0.0.20/leaflet-maplibre-gl.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
-<script src="app.js?v=6"></script>
+<script src="app.js?v=7"></script>
 </body>
 </html>
