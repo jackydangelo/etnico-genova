@@ -231,3 +231,15 @@
   indirizzo: Via Giuseppe Macaggi 23R, 16121, Genova GE, Italia
   lat: 44.40249
   lng: 8.94085
+
+- nome: Agithan Ristorante Sri Lankan
+  cucina: Cingalese
+  indirizzo: Via Cornigliano 60R, 16152, Genova GE, Italia
+
+- nome: Se llama Perù
+  cucina: Peruviana
+  indirizzo: Corso Ferdinando Maria Perrone 1, 16152, Genova GE, Italia
+
+- nome: Gondal Grill & Kebab
+  cucina: Pakistana
+  indirizzo: Piazza Andrea Massena 4R, 16152, Genova GE, Italia
