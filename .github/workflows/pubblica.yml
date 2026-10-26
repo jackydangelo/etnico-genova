@@ -1,3 +1,4 @@
+
 name: Pubblica sito
 
 on:
@@ -43,8 +44,10 @@ jobs:
 
       - name: Prepara i file del sito
         run: |
-          mkdir _site
-          cp index.html style.css app.js ristoranti.yaml favicon.svg apple-touch-icon.png privacy.html _site/
+          mkdir -p _site/styles _site/assets
+          cp index.html app.js ristoranti.yaml privacy.html _site/
+          cp styles/style.css _site/styles/
+          cp assets/favicon.svg assets/apple-touch-icon.png _site/assets/
 
       - uses: actions/configure-pages@v5
 
