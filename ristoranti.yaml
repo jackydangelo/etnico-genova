@@ -47,6 +47,8 @@
 - nome: Marrakech2
   cucina: Marocchina
   indirizzo: Salita del Prione, 27r, 16123, Genova GE, Italia
+  lat: 44.40562
+  lng: 8.93341
 
 - nome: Tabarca cucina iberica
   cucina: Spagnola
